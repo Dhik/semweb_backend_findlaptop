@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getByProduct, getByCompany, getByCpu, getByInches, getByType } = require('../controllers/LaptopController');
+const { getByProduct, getAllCompany, getAllRam, getAllInches, getAllType } = require('../controllers/LaptopController');
 
 router.get('/', (req, res) => {
     res.status(200).json({
@@ -14,9 +14,9 @@ router.get('/', (req, res) => {
 // Endpoint mendapatkan data semua buku atau berdasarkan param atau query
 
 
-router.post('/type', getByType);
-router.post('/cpu', getByCpu);
-router.post('/inches', getByInches);
+router.get('/type', getAllType);
+router.get('/ram', getAllRam);
+router.get('/inches', getAllInches);
 router.post('/product', getByProduct);
-router.post('/company', getByCompany);
+router.get('/company', getAllCompany);
 module.exports = router;

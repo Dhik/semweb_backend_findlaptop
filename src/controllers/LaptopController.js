@@ -1,5 +1,9 @@
 const LaptopRepo = require('../repo/LaptopRepo');
 const LaptopFormatter = require('../utils/LaptopFormatter');
+const InchesFormatter = require('../utils/InchesFormatter');
+const CompanyFormatter = require('../utils/CompanyFormatter');
+const RamFormatter = require('../utils/RamFormatter');
+const TypeFormatter = require('../utils/TypeFormatter');
 module.exports = {
     getByProduct: async(req, res) => {
         try {
@@ -33,10 +37,10 @@ module.exports = {
             });
         }
     },
-    getByCompany: async(req, res) => {
+    getAllCompany: async(req, res) => {
         try {
             // mengambil data dai LaptopRepo berdasarkan req.query
-            let laptops = await LaptopRepo.getByCompany(req.query);
+            let laptops = await LaptopRepo.getAllCompany(req.query);
 
             // Jika data pada LaptopRepo kosong
             if (!laptops.bindings.length) {
@@ -49,7 +53,7 @@ module.exports = {
             }
 
             // Ketika data dari LaptopRepo ada, data di mapping menjadi format json yang diinginkan
-            laptops = laptops.bindings.map((laptops) => LaptopFormatter(laptops));
+            laptops = laptops.bindings.map((laptops) => CompanyFormatter(laptops));
             return res.status(200).json({
                 success: true,
                 status: 200,
@@ -65,10 +69,10 @@ module.exports = {
             });
         }
     },
-    getByInches: async(req, res) => {
+    getAllInches: async(req, res) => {
         try {
             // mengambil data dai LaptopRepo berdasarkan req.query
-            let laptops = await LaptopRepo.getByInches(req.query);
+            let laptops = await LaptopRepo.getAllInches(req.query);
 
             // Jika data pada LaptopRepo kosong
             if (!laptops.bindings.length) {
@@ -81,7 +85,7 @@ module.exports = {
             }
 
             // Ketika data dari LaptopRepo ada, data di mapping menjadi format json yang diinginkan
-            laptops = laptops.bindings.map((laptops) => LaptopFormatter(laptops));
+            laptops = laptops.bindings.map((laptops) => InchesFormatter(laptops));
             return res.status(200).json({
                 success: true,
                 status: 200,
@@ -97,10 +101,10 @@ module.exports = {
             });
         }
     },
-    getByType: async(req, res) => {
+    getAllType: async(req, res) => {
         try {
             // mengambil data dai LaptopRepo berdasarkan req.query
-            let laptops = await LaptopRepo.getByType(req.query);
+            let laptops = await LaptopRepo.getAllType(req.query);
 
             // Jika data pada LaptopRepo kosong
             if (!laptops.bindings.length) {
@@ -113,7 +117,7 @@ module.exports = {
             }
 
             // Ketika data dari LaptopRepo ada, data di mapping menjadi format json yang diinginkan
-            laptops = laptops.bindings.map((laptops) => LaptopFormatter(laptops));
+            laptops = laptops.bindings.map((laptops) => TypeFormatter(laptops));
             return res.status(200).json({
                 success: true,
                 status: 200,
@@ -129,10 +133,10 @@ module.exports = {
             });
         }
     },
-    getByCpu: async(req, res) => {
+    getAllRam: async(req, res) => {
         try {
             // mengambil data dai LaptopRepo berdasarkan req.query
-            let laptops = await LaptopRepo.getByCpu(req.query);
+            let laptops = await LaptopRepo.getAllRam(req.query);
 
             // Jika data pada LaptopRepo kosong
             if (!laptops.bindings.length) {
@@ -145,7 +149,7 @@ module.exports = {
             }
 
             // Ketika data dari LaptopRepo ada, data di mapping menjadi format json yang diinginkan
-            laptops = laptops.bindings.map((laptops) => LaptopFormatter(laptops));
+            laptops = laptops.bindings.map((laptops) => RamFormatter(laptops));
             return res.status(200).json({
                 success: true,
                 status: 200,
