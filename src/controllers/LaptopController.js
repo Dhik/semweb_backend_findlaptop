@@ -7,7 +7,7 @@ const TypeFormatter = require('../utils/TypeFormatter');
 module.exports = {
     getByProduct: async(req, res) => {
         try {
-            // mengambil data dai LaptopRepo berdasarkan req.query
+            // mengambil data dari LaptopRepo berdasarkan req.query
             let laptops = await LaptopRepo.getByProduct(req.query);
 
             // Jika data pada LaptopRepo kosong

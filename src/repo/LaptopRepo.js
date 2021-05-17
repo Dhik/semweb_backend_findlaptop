@@ -22,18 +22,6 @@ exports.getAllCompany = async(param) => {
         SELECT DISTINCT ?company  
         WHERE {
             ?s  data:Company ?company.
-            OPTIONAL {?s data:Company ?company.}
-            OPTIONAL {?s data:Product ?product.}
-            OPTIONAL {?s data:TypeName ?typeName.}
-            OPTIONAL {?s data:Inches ?inches.}
-            OPTIONAL {?s data:ScreenResolution ?screenResolution.}
-            OPTIONAL {?s data:Cpu ?cpu.}
-            OPTIONAL {?s data:Ram ?ram.}
-            OPTIONAL {?s data:Memory ?memory.}
-            OPTIONAL {?s data:Gpu ?gpu.}
-            OPTIONAL {?s data:OpSys ?opSys.}
-            OPTIONAL {?s data:Weight ?weight.}
-            OPTIONAL {?s data:Price_euros ?price.}
         }`
     };
 
@@ -108,18 +96,6 @@ exports.getAllInches = async(param) => {
         SELECT DISTINCT ?inches  
         WHERE {
             ?s  data:Inches ?inches.
-            OPTIONAL {?s data:Company ?company.}
-            OPTIONAL {?s data:Product ?product.}
-            OPTIONAL {?s data:TypeName ?typeName.}
-            OPTIONAL {?s data:Inches ?inches.}
-            OPTIONAL {?s data:ScreenResolution ?screenResolution.}
-            OPTIONAL {?s data:Cpu ?cpu.}
-            OPTIONAL {?s data:Ram ?ram.}
-            OPTIONAL {?s data:Memory ?memory.}
-            OPTIONAL {?s data:Gpu ?gpu.}
-            OPTIONAL {?s data:OpSys ?opSys.}
-            OPTIONAL {?s data:Weight ?weight.}
-            OPTIONAL {?s data:Price_euros ?price.}
         }`
     };
 
@@ -147,18 +123,6 @@ exports.getAllType = async(param) => {
         SELECT DISTINCT ?typeName
         WHERE {
             ?s data:TypeName ?typeName.
-            OPTIONAL {?s data:Company ?company.}
-            OPTIONAL {?s data:Product ?product.}
-            OPTIONAL {?s data:TypeName ?typeName.}
-            OPTIONAL {?s data:Inches ?inches.}
-            OPTIONAL {?s data:ScreenResolution ?screenResolution.}
-            OPTIONAL {?s data:Cpu ?cpu.}
-            OPTIONAL {?s data:Ram ?ram.}
-            OPTIONAL {?s data:Memory ?memory.}
-            OPTIONAL {?s data:Gpu ?gpu.}
-            OPTIONAL {?s data:OpSys ?opSys.}
-            OPTIONAL {?s data:Weight ?weight.}
-            OPTIONAL {?s data:Price_euros ?price.}
         }`
     };
 
@@ -186,18 +150,6 @@ exports.getAllRam = async(param) => {
         SELECT DISTINCT ?ram  
         WHERE {
             ?s data:Ram ?ram.
-            OPTIONAL {?s data:Company ?company.}
-            OPTIONAL {?s data:Product ?product.}
-            OPTIONAL {?s data:TypeName ?typeName.}
-            OPTIONAL {?s data:Inches ?inches.}
-            OPTIONAL {?s data:ScreenResolution ?screenResolution.}
-            OPTIONAL {?s data:Cpu ?cpu.}
-            OPTIONAL {?s data:Ram ?ram.}
-            OPTIONAL {?s data:Memory ?memory.}
-            OPTIONAL {?s data:Gpu ?gpu.}
-            OPTIONAL {?s data:OpSys ?opSys.}
-            OPTIONAL {?s data:Weight ?weight.}
-            OPTIONAL {?s data:Price_euros ?price.}
         }`
     };
 
