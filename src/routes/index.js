@@ -10,10 +10,6 @@ router.get('/', (req, res) => {
     });
 });
 
-
-// Endpoint mendapatkan data semua buku atau berdasarkan param atau query
-
-
 router.get('/type', getAllType);
 router.get('/ram', getAllRam);
 router.get('/inches', getAllInches);
