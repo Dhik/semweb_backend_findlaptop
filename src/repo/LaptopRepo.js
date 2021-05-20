@@ -1,8 +1,8 @@
 const axios = require('axios');
 const qs = require('qs');
 
-// const BASE_URL = process.env.BASE_URL_FUSEKI; // URL Fuseki
-const BASE_URL = 'http://localhost:3030'; // URL Fuseki
+const BASE_URL = process.env.BASE_URL_FUSEKI; // URL Fuseki
+// const BASE_URL = 'http://localhost:3030'; // URL Fuseki
 
 
 // http headers request
@@ -12,7 +12,7 @@ const headers = {
 }
 
 // Fungsi Get data dari fuseki server
-exports.getAllCompany = async(param) => {
+exports.getAllCompany = async (param) => {
 
     // Query SparQL
     const queryData = {
@@ -39,7 +39,7 @@ exports.getAllCompany = async(param) => {
     }
 }
 
-exports.getByProduct = async(param) => {
+exports.getByProduct = async (param) => {
 
     // Query SparQL
     const queryData = {
@@ -86,7 +86,7 @@ exports.getByProduct = async(param) => {
     }
 }
 
-exports.getAllInches = async(param) => {
+exports.getAllInches = async (param) => {
 
     // Query SparQL
     const queryData = {
@@ -113,7 +113,7 @@ exports.getAllInches = async(param) => {
     }
 }
 
-exports.getAllType = async(param) => {
+exports.getAllType = async (param) => {
 
     // Query SparQL
     const queryData = {
@@ -140,7 +140,7 @@ exports.getAllType = async(param) => {
     }
 }
 
-exports.getAllRam = async(param) => {
+exports.getAllRam = async (param) => {
 
     // Query SparQL
     const queryData = {
