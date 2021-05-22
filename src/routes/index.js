@@ -13,6 +13,6 @@ router.get('/', (req, res) => {
 router.get('/type', getAllType);
 router.get('/ram', getAllRam);
 router.get('/inches', getAllInches);
-router.post('/product', getByProduct);
+router.get('/product', getByProduct);
 router.get('/company', getAllCompany);
 module.exports = router;
