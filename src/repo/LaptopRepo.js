@@ -62,6 +62,16 @@ exports.getByProduct = async(param) => {
             OPTIONAL {?s data:Price ?price.}
             ?s  data:ProductedBy ?companyid.
   			?companyid data:nameCompany ?company.
+  			?s  data:isType ?typeid.
+  			?typeid data:nameType ?typeName.
+  			?s  data:haveRam ?ramid.
+  			?ramid data:sizeRam ?ram.
+  			?s  data:haveSize ?inchesid.
+  			?inchesid data:size ?inches.
+  			?s  data:haveStorage ?memoryid.
+  			?memoryid data:storage ?memory.
+  			?s  data:useOpSys ?opsysid.
+  			?opsysid data:corp ?opSys.
             FILTER regex(?product, "${param.product ? param.product : ''}", "i")
             FILTER regex(?company, "${param.company ? param.company : ''}", "i")
             FILTER regex(?ram, "${param.ram ? param.ram : ''}", "i")
@@ -96,7 +106,8 @@ exports.getAllInches = async(param) => {
 
         SELECT DISTINCT ?inches  
         WHERE {
-            ?s  data:Inches ?inches.
+            ?s  data:haveSize ?inchesid.
+  			?inchesid data:size ?inches.
         }`
     };
 
@@ -123,7 +134,8 @@ exports.getAllType = async(param) => {
 
         SELECT DISTINCT ?typeName
         WHERE {
-            ?s data:TypeName ?typeName.
+            ?s  data:isType ?typeid.
+  			?typeid data:nameType ?typeName.
         }`
     };
 
@@ -150,7 +162,8 @@ exports.getAllRam = async(param) => {
 
         SELECT DISTINCT ?ram  
         WHERE {
-            ?s data:Ram ?ram.
+            ?s  data:haveRam ?ramid.
+  			?ramid data:sizeRam ?ram.
         }`
     };
 
