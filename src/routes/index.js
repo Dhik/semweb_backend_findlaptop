@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getByProduct, getAllCompany, getAllRam, getAllInches, getAllType } = require('../controllers/LaptopController');
+const { getByProduct, getAllCompany, getAllRam, getAllInches, getAllType, getAll } = require('../controllers/LaptopController');
 
 router.get('/', (req, res) => {
     res.status(200).json({
@@ -15,4 +15,6 @@ router.get('/ram', getAllRam);
 router.get('/inches', getAllInches);
 router.get('/product', getByProduct);
 router.get('/company', getAllCompany);
+
+router.post('/all', getAll);
 module.exports = router;
