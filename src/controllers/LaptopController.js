@@ -5,7 +5,7 @@ const CompanyFormatter = require('../utils/CompanyFormatter');
 const RamFormatter = require('../utils/RamFormatter');
 const TypeFormatter = require('../utils/TypeFormatter');
 module.exports = {
-    getByProduct: async(req, res) => {
+    getByProduct: async (req, res) => {
         try {
             // mengambil data dari LaptopRepo berdasarkan req.query
             let laptops = await LaptopRepo.getByProduct(req.query);
@@ -37,7 +37,7 @@ module.exports = {
             });
         }
     },
-    getAllCompany: async(req, res) => {
+    getAllCompany: async (req, res) => {
         try {
             // mengambil data dai LaptopRepo berdasarkan req.query
             let laptops = await LaptopRepo.getAllCompany(req.query);
@@ -69,7 +69,7 @@ module.exports = {
             });
         }
     },
-    getAllInches: async(req, res) => {
+    getAllInches: async (req, res) => {
         try {
             // mengambil data dai LaptopRepo berdasarkan req.query
             let laptops = await LaptopRepo.getAllInches(req.query);
@@ -101,7 +101,7 @@ module.exports = {
             });
         }
     },
-    getAllType: async(req, res) => {
+    getAllType: async (req, res) => {
         try {
             // mengambil data dai LaptopRepo berdasarkan req.query
             let laptops = await LaptopRepo.getAllType(req.query);
@@ -133,7 +133,7 @@ module.exports = {
             });
         }
     },
-    getAllRam: async(req, res) => {
+    getAllRam: async (req, res) => {
         try {
             // mengambil data dai LaptopRepo berdasarkan req.query
             let laptops = await LaptopRepo.getAllRam(req.query);
@@ -165,7 +165,7 @@ module.exports = {
             });
         }
     },
-    getAll: async(req, res) => {
+    getAll: async (req, res) => {
         try {
             // mengambil data dari LaptopRepo berdasarkan req.query
             let laptops = await LaptopRepo.getAll(req.query);
@@ -183,8 +183,7 @@ module.exports = {
             // Ketika data dari LaptopRepo ada, data di mapping menjadi format json yang diinginkan
             laptops = laptops.bindings.map((laptops) => LaptopFormatter(laptops));
 
-            function jsUcfirst(string) 
-            {
+            function jsUcfirst(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
             }
             var list_product = [];
@@ -196,7 +195,7 @@ module.exports = {
                 }
             }
             var keywords = req.body.input.split(" ");
-            
+
             var get_list = [];
 
             for (const product in list_product) {
@@ -214,47 +213,47 @@ module.exports = {
 
             if (get_list.length == 0) {
                 var i;
-            var ls = {};
-            for (i = 0; i < laptops.length; i++) {
-                for (const property in laptops[i]) {
-                    var myStringArray = req.body.input.split(" ");
-                    var arrayLength = myStringArray.length;
-                    for (var j = 0; j < arrayLength; j++) {
-                        if (laptops[i][property] == jsUcfirst(myStringArray[j])) {
-                            ls[property] = laptops[i][property];
-                        }
-                    }
-                }
-            }
-            Object.size = function(obj) {
-                var size = 0,
-                  key;
-                for (key in obj) {
-                  if (obj.hasOwnProperty(key)) size++;
-                }
-                return size;
-              };
-              
-              // Get the size of an object
-            const myObj = {}
-            var size = Object.size(ls);
-
-            //List Product
-            for (i = 0; i < laptops.length; i++) {
-                var k = 0;
-                for (const property in laptops[i]) {
-                    for (const lis in ls) {
-                        if (property == lis) {
-                            if (laptops[i][property] == ls[lis]) {
-                                k+=1;  
+                var ls = {};
+                for (i = 0; i < laptops.length; i++) {
+                    for (const property in laptops[i]) {
+                        var myStringArray = req.body.input.split(" ");
+                        var arrayLength = myStringArray.length;
+                        for (var j = 0; j < arrayLength; j++) {
+                            if (laptops[i][property] == jsUcfirst(myStringArray[j])) {
+                                ls[property] = laptops[i][property];
                             }
                         }
                     }
                 }
-                if (k == Object.size(ls)) {
-                    lst.push(laptops[i]);
+                Object.size = function (obj) {
+                    var size = 0,
+                        key;
+                    for (key in obj) {
+                        if (obj.hasOwnProperty(key)) size++;
+                    }
+                    return size;
+                };
+
+                // Get the size of an object
+                const myObj = {}
+                var size = Object.size(ls);
+
+                //List Product
+                for (i = 0; i < laptops.length; i++) {
+                    var k = 0;
+                    for (const property in laptops[i]) {
+                        for (const lis in ls) {
+                            if (property == lis) {
+                                if (laptops[i][property] == ls[lis]) {
+                                    k += 1;
+                                }
+                            }
+                        }
+                    }
+                    if (k == Object.size(ls)) {
+                        lst.push(laptops[i]);
+                    }
                 }
-            }
             } else {
                 for (i = 0; i < laptops.length; i++) {
                     for (const property in laptops[i]) {
@@ -266,9 +265,9 @@ module.exports = {
                     }
                 }
             }
-            
+
             return res.status(200).json({
-                success: false,
+                success: true,
                 status: 200,
                 data: lst,
                 message: "Data laptop berhasil ditemukan"

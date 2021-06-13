@@ -213,7 +213,8 @@ exports.getAll = async () => {
   			?memoryid data:storage ?memory.
   			?s  data:useOpSys ?opsysid.
   			?opsysid data:corp ?opSys.
-        }`
+        }
+        LIMIT 100`
     };
 
     try {
