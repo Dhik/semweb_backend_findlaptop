@@ -1,9 +1,8 @@
 const axios = require('axios');
 const qs = require('qs');
 
-// const BASE_URL = process.env.BASE_URL_FUSEKI; // URL Fuseki
-const BASE_URL = 'http://localhost:3030'; // URL Fuseki
-
+const BASE_URL = "http://localhost:3030"; // URL Fuseki
+// const BASE_URL = 'http://localhost:3030'; // URL Fuseki
 
 // http headers request
 const headers = {
@@ -11,35 +10,9 @@ const headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 }
 
-// Fungsi Get data dari fuseki server
-exports.getAllCompany = async(param) => {
+exports.getByProduct = async (param) => {
 
-    // Query SparQL
-    const queryData = {
-        query: `PREFIX data:<http://example.com/>
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-        SELECT DISTINCT ?company  
-        WHERE {
-            ?s  data:ProductedBy ?companyid.
-  			?companyid data:nameCompany ?company.
-        }`
-    };
-
-    try {
-        // Request post data ke endpoint fuseki server
-        const { data } = await axios(`${BASE_URL}/laptops/sparql`, {
-            method: 'POST',
-            headers,
-            data: qs.stringify(queryData)
-        });
-        // mengembalikan result
-        return data.results;
-    } catch (err) {
-        return Promise.reject(err);
-    }
-}
-
-exports.getByProduct = async(param) => {
+    const inches = param.inches ? `FILTER(?inches = ${param.inches})` : '';
 
     // Query SparQL
     const queryData = {
@@ -76,16 +49,17 @@ exports.getByProduct = async(param) => {
             FILTER regex(?company, "${param.company ? param.company : ''}", "i")
             FILTER regex(?ram, "${param.ram ? param.ram : ''}", "i")
             FILTER regex(?opSys, "${param.operating_system ? param.operating_system : ''}", "i")
-            FILTER(?inches = ${param.inches})
+            ${inches}
             FILTER regex(?typeName, "${param.type ? param.type : ''}", "i")
             FILTER regex(?cpu, "${param.cpu ? param.cpu : ''}", "i")
-            FILTER(?price > ${param.low} && ?price < ${param.high})
-        }`
+            FILTER(?price > ${param.low ? param.low : 0} && ?price < ${param.high ? param.high : 1000000000})
+        }
+        LIMIT ${param.limit ? param.limit : 1000}`
     };
 
     try {
         // Request post data ke endpoint fuseki server
-        const { data } = await axios(`${BASE_URL}/laptops/sparql`, {
+        const { data } = await axios(`${BASE_URL}/new_laptops/sparql`, {
             method: 'POST',
             headers,
             data: qs.stringify(queryData)
@@ -97,13 +71,40 @@ exports.getByProduct = async(param) => {
     }
 }
 
-exports.getAllInches = async(param) => {
+// Fungsi Get data dari fuseki server
+exports.getAllCompany = async () => {
 
     // Query SparQL
     const queryData = {
         query: `PREFIX data:<http://example.com/>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+        SELECT DISTINCT ?company  
+        WHERE {
+            ?s  data:ProductedBy ?companyid.
+  			?companyid data:nameCompany ?company.
+        }`
+    };
 
+    try {
+        // Request post data ke endpoint fuseki server
+        const { data } = await axios(`${BASE_URL}/new_laptops/sparql`, {
+            method: 'POST',
+            headers,
+            data: qs.stringify(queryData)
+        });
+        // mengembalikan result
+        return data.results;
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
+
+exports.getAllInches = async () => {
+
+    // Query SparQL
+    const queryData = {
+        query: `PREFIX data:<http://example.com/>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
         SELECT DISTINCT ?inches  
         WHERE {
             ?s  data:haveSize ?inchesid.
@@ -113,7 +114,7 @@ exports.getAllInches = async(param) => {
 
     try {
         // Request post data ke endpoint fuseki server
-        const { data } = await axios(`${BASE_URL}/laptops/sparql`, {
+        const { data } = await axios(`${BASE_URL}/new_laptops/sparql`, {
             method: 'POST',
             headers,
             data: qs.stringify(queryData)
@@ -125,13 +126,12 @@ exports.getAllInches = async(param) => {
     }
 }
 
-exports.getAllType = async(param) => {
+exports.getAllType = async () => {
 
     // Query SparQL
     const queryData = {
         query: `PREFIX data:<http://example.com/>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-
         SELECT DISTINCT ?typeName
         WHERE {
             ?s  data:isType ?typeid.
@@ -141,7 +141,7 @@ exports.getAllType = async(param) => {
 
     try {
         // Request post data ke endpoint fuseki server
-        const { data } = await axios(`${BASE_URL}/laptops/sparql`, {
+        const { data } = await axios(`${BASE_URL}/new_laptops/sparql`, {
             method: 'POST',
             headers,
             data: qs.stringify(queryData)
@@ -153,13 +153,12 @@ exports.getAllType = async(param) => {
     }
 }
 
-exports.getAllRam = async(param) => {
+exports.getAllRam = async () => {
 
     // Query SparQL
     const queryData = {
         query: `PREFIX data:<http://example.com/>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-
         SELECT DISTINCT ?ram  
         WHERE {
             ?s  data:haveRam ?ramid.
@@ -169,7 +168,7 @@ exports.getAllRam = async(param) => {
 
     try {
         // Request post data ke endpoint fuseki server
-        const { data } = await axios(`${BASE_URL}/laptops/sparql`, {
+        const { data } = await axios(`${BASE_URL}/new_laptops/sparql`, {
             method: 'POST',
             headers,
             data: qs.stringify(queryData)
@@ -180,6 +179,7 @@ exports.getAllRam = async(param) => {
         return Promise.reject(err);
     }
 }
+
 exports.getAll = async () => {
 
     // Query SparQL
@@ -218,7 +218,7 @@ exports.getAll = async () => {
 
     try {
         // Request post data ke endpoint fuseki server
-        const { data } = await axios(`${BASE_URL}/laptops/sparql`, {
+        const { data } = await axios(`${BASE_URL}/new_laptops/sparql`, {
             method: 'POST',
             headers,
             data: qs.stringify(queryData)
